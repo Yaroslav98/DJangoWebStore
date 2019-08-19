@@ -1,0 +1,157 @@
+{% extends "store/base_store.html" %}
+{% load staticfiles %}
+{% block title %}
+     Products
+{% endblock %}
+{% block other_scripts %}
+    <script src="{% static 'js/for_save_search_script.js' %}" charset="utf-8"></script>
+
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <h1>Products </h1>
+    <div class="filter">
+     <form action="{% url 'product_search'%}" method="get" class="form-inline">
+     <div class="row ml-5">
+     <div class="col-sm-2">
+     <div class="form-group">
+      <label  for="id_product_name">Product: </label>
+       <input type="text" name="product_name" id="id_product_name" class="form-control" placeholder="Product name" value="{{  saved_product_param}}">
+     </div>
+     </div>
+     <div class="col-sm-2">
+         <div class="form-group">
+           <label for="id_category_select">Category: </label>
+            <select class="form-control" id="id_category_select" name="category">
+            <option label>Not</option>
+             {%  for category in categories %}
+                 <option>{{ category.name }}</option>
+             {% endfor %}
+             </select>
+         </div>
+     </div>
+     <div class="col-sm-2">
+         <div class="form-group">
+              <label class="search-form-label" for="id_brand_select">Brand: </label>
+             <select  class="form-control" id="id_brand_select" name="brand">
+             <option label>Not</option>
+                 {%  for brand in brands%}
+                     <option value="{{ brand.name }}">{{ brand.name }}</option>
+                 {% endfor %}
+             </select>
+         </div>
+     </div>
+     <div class="col-sm-2">
+         <div class="form-group">
+             <label class="mr-1" for="id_min_price">Minimal price: </label>
+             <input  type="number" class="form-control"  id="id_min_price" name="minprice" value="{{ saved_minprice_param }}">
+         </div>
+     </div>
+     <div class="col-sm-2">
+         <div class="form-group">
+              <label class="mr-1" for="id_max_price">Maximal price: </label>
+             <input type="number"  class="form-control" id="id_max_price" name="maxprice" value="{{ saved_maxprice_param }}">
+         </div>
+     </div>
+     <div class="col-sm-2 mt-4">
+     <input type="submit" class="btn btn-primary search-product-submit" value="Search">
+         </div>
+     </div>
+  </form>
+    </div>
+    {% if products %}
+    <div class="products-container container">
+        <div class="row">
+       {% for product in products %}
+        <div class="col-md-3 d-flex align-items-stretch">
+            <div class="product card">
+                <img  class="card-img-top" src="{{product.image.url}}" alt="{{ product.product.name }} picture">
+                <div class="card-body ">
+                <h4 class="cart-title">{{ product.product.name }}</h4>
+                  <div class="product rate">{{ product.product.rate }}</div>
+                    <p class="card-text">{{ product.product.description }}</p>
+                     <div class="product price">{{ product.product.price }} USD</div>
+                    <form class="form-inline product-card-form" action="{% url 'add_to_cart' %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                <button type="submit" id="submit_btn_{{ product.product.id }}" class="btn btn-success btn-add"
+        data-product_id= "{{ product.product.id }}"
+        data-product_name="{{ product.product.name }}"
+        data-product_price="{{ product.product.price }}"
+                        data-product_count="1"
+        >
+            Add to cart</button>
+                        </div>
+                         <div class="form-group">
+                        <button class="btn btn-primary" onclick="location.href='{% url 'product' product.product.id %}'">
+            View more</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+        </div>
+    </div>
+        <div class="pagination" >
+        <div class="container" align="center">
+        {% if products.has_previous %}
+            <a class="pagination-action" href="?page=1
+&product_name={{ saved_product_param }}
+&category={{ saved_category_param }}
+&brand={{ saved_brand_param }}
+&minprice={{ saved_minprice_param }}
+&maxprice={{ saved_maxprice_param }}">
+                <i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+            <a class="pagination-action" href="?page={{ products.previous_page_number }}
+&product_name={{ saved_product_param }}
+&category={{ saved_category_param }}
+&brand={{ saved_brand_param }}
+&minprice={{ saved_minprice_param }}
+&maxprice={{ saved_maxprice_param }}">
+                <i class="fa fa-angle-left" aria-hidden="true"></i>
+            </a>
+        {% endif %}
+
+        {% for num in products.paginator.page_range %}
+            {% if products.number == num %}
+                <span class="pagination-number pagination-current">{{ num }}</span>
+            {% elif num > products.number|add:'-3' and num < products.number|add:'3'%}
+               <a class="pagination-number" href="?page={{ num }}
+&product_name={{ saved_product_param }}
+&category={{ saved_category_param }}
+&brand={{ saved_brand_param }}
+&minprice={{ saved_minprice_param }}
+&maxprice={{ saved_maxprice_param }}">{{ num }}</a>
+            {% endif %}
+
+        {% endfor%}
+
+        {% if products.has_next %}
+            <a class="pagination-action" href="?page={{ products.next_page_number }}
+&product_name={{ saved_product_param }}
+&category={{ saved_category_param }}
+&brand={{ saved_brand_param }}
+&minprice={{ saved_minprice_param }}
+&maxprice={{ saved_maxprice_param }}">
+                  <i class="fa fa-angle-right" aria-hidden="true"></i>
+            </a>
+              <a  class="pagination-action" href="?page={{ products.paginator.num_pages }}
+&product_name={{ saved_product_param }}
+&category={{ saved_category_param }}
+&brand={{ saved_brand_param }}
+&minprice={{ saved_minprice_param }}
+&maxprice={{ saved_maxprice_param }}">
+               <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            </a>
+        {% endif %}
+        </div>
+</div>
+
+    {% else %}
+        <h2>Products not found</h2>
+    {% endif %}
+{% endblock %}

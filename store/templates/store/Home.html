@@ -1,0 +1,70 @@
+{% extends 'store/base_store.html' %}
+{% block title %}
+    Web store
+{% endblock %}
+{% block content %}
+    <div class="slider"></div>
+    {% if most_popular_brands %}
+    <div class="popular_brands container">
+     <h2>Popular brands</h2>
+    <div class="row">
+        {% for brand in most_popular_brands %}
+            <div class="col-md-3 d-flex align-items-stretch">
+        <div class="brand card">
+            <img class="card-img-top" src="{{ brand.image.url }}" alt="{{ brand.name }} picture">
+            <div class="card-body">
+            <h4 class="card-title">{{ brand.name }}</h4>
+            <p class="card-text">{{ brand.description }}</p>
+                <div align="right">
+            <a href="{% url 'brand' brand.id %}" class="btn btn-primary">View more</a>
+                </div>
+            </div>
+        </div>
+            </div>
+        {% endfor %}
+    </div>
+        </div>
+    {% else %}
+        Brands not registered
+    {% endif %}
+    {% if most_popular_products_image %}
+    <div class="popular_products products-container container">
+    <h2>Popular products</h2>
+        <div class="row">
+        {% for product in most_popular_products_image %}
+        <div class="col-md-3 d-flex align-items-stretch">
+            <div class="product card">
+                <img  class="card-img-top" src="{{product.image.url}}" alt="{{ product.product.name }} picture">
+                <div class="card-body ">
+                <h4 class="cart-title">{{ product.product.name }}</h4>
+                  <div class="product rate">Rate: {{ product.product.rate }}</div>
+                    <p class="card-text">{{ product.product.description }}</p>
+                     <div class="product price">{{ product.product.price }} USD</div>
+                    <form class="form-inline product-card-form" action="{% url 'add_to_cart' %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                <button type="submit" id="submit_btn_{{ product.product.id }}" class="btn btn-success btn-add"
+        data-product_id= "{{ product.product.id }}"
+        data-product_name="{{ product.product.name }}"
+        data-product_price="{{ product.product.price }}"
+                        data-product_count="1"
+        >
+            Add to cart</button>
+                        </div>
+                         <div class="form-group">
+                             <button class="btn btn-primary" onclick="location.href='{% url 'product' product.product.id %}'">
+                                 View more
+                             </button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        </div>
+    </div>
+    {% else %}
+        No popular products
+    {% endif %}
+{% endblock %}

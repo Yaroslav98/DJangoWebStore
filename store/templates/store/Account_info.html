@@ -1,0 +1,18 @@
+{% extends "store/base_store.html" %}
+{% block title %}
+    {{  user_info.user.username}} info
+{% endblock %}
+{% block content %}
+<h1>{{  user.username}} information</h1>
+    <div class="user-info container">
+    <div class="row">
+     <div class="col-sm-3">
+    <img src="{{ user_info.photo.url}}" alt="user photo">
+         </div>
+        <div class="col-sm-9">
+    <p>Information: {{ user_info.info }}</p>
+    <p>Registration date: {{ user_info.regdate }}</p>
+            </div>
+    </div>
+    </div>
+{% endblock %}

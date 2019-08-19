@@ -1,0 +1,175 @@
+
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}
+            Web store
+        {% endblock %}
+    </title>
+       <!--<meta name="description" content= -->
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+
+         crossorigin="anonymous">
+
+    <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+<script src="{% static 'js/scripts.js' %}"></script>
+{% block other_scripts %}
+{% endblock %}
+</head>
+
+<body>
+ <div class="wripper"></div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+        <img id="nav-logo" src="{% static 'images/logo.png' %}" alt="">
+        </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'product_search' %}">Products</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'brands' %}">Brands</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'categories' %}">Categories</a>
+      </li>
+
+    </ul>
+    <div class="searсh-container">
+    <form class="form-inline my-2 my-lg-0" id="#form-search-product" action="{% url 'product_search' %}">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search product"
+             aria-label="Search" name="product_name" id="search_field">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        <div class="search-items">
+        <ul id="search_results" >
+
+        </ul>
+            </div>
+    </form>
+    </div>
+   <ul class="navbar-nav ml-3 mt-2 mr-5">
+    <li class="nav-item">
+         <div class="cart-container">
+     <a href="#" class="cart_open nav-link">Cart
+         <span id="cart_count">
+             {% if cart_count %}
+                 ({{ cart_count }})
+             {% endif %}
+         </span>
+     </a>
+
+            <div class="cart-items">
+                <ul class="cart-items-list" >
+                     {% if products_in_cart %}
+                    {% for product_id,product_info in products_in_cart.items %}
+                        <li id="cart-item-{{ product_id }}" class="cart-item">
+                        <div class="container cart-item-container">
+                            <div class="row cart-item-row">
+                                <div class="col-sm-3 cart-item-image">
+                            <img class="cart-item-image" src="{{ product_info.image }}" alt="">
+                                    </div>
+                                <div class="col-sm-8 cart-item-info ">
+                                <h5>{{ product_info.name}}</h5>
+                                    <p class="product-count-p"><span class="product_count">{{ product_info.count }}</span> things</p>
+                                    price:<span class="product_price" >{{ product_info.price }}</span> USD
+                                </div>
+                            <a class="delete-item" href="{% url 'remove_from_cart' %}" data-product_id={{ product_id }} >X</a>
+                                </div>
+                            </div>
+                        </li>
+
+                    {% endfor %}
+
+                    {% endif %}
+                </ul>
+                <div align="right" >
+                    <a href="{% url 'creating_order' %}" class="btn btn-outline-primary" >Create order</a>
+                </div>
+            </div>
+
+ </div>
+    </li>
+    <li class="nav-item dropdown">
+        {% if user.username %}
+      <a class="nav-link dropdown-toggle" href="#"  role="button" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
+          {{ user.username }}
+        </a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="{% url 'account_info' %}">Account Info</a>
+          <a class="dropdown-item" href="{% url 'account_orders' %}">Orders</a>
+          <a class="dropdown-item" href="{% url 'account_info_edit' %}">Edit</a>
+            {% if user.is_superuser %}
+                <a class="dropdown-item" href="/admin">Admin</a>
+                {% endif %}
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="{% url 'logout' %}">Log out</a>
+        </div>
+            </li>
+      {% else %}
+         <li class="nav-item">
+             <a href="{% url 'login' %}" class="nav-link">Log in</a>
+         </li>
+         <li class="nav-item">
+            <a href="{% url 'registration' %}" class="nav-link">Register</a>
+         </li>
+      {% endif %}
+
+</ul>
+
+
+
+  </div>
+</nav>
+ {% block content %}
+     Content
+ {% endblock %}
+<footer>
+    <div class="footer-container container-fluid">
+        <div class="row">
+            <div class="col-sm-3">
+                <img id="footer-logo" src="{% static 'images/logo.png' %}" alt="">
+            </div>
+            <div class="col-sm-5">
+                <p id="footer-company-info">
+                    text
+                </p>
+            </div>
+            <div class="col-sm-4">
+                <ul class="footer_links">
+                    <li>
+                        <a href="#">Home</a>
+                    </li>
+                    <li>
+                        <a href="#">About</a>
+                    </li>
+                    <li>
+                        <a href="#">Faq</a>
+                    </li>
+                    <li>
+                        <a href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="copyright">© Webstore 2019. All Rights Reserved.</div>
+</footer>
+
+
+</body>
+</html>

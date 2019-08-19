@@ -1,0 +1,23 @@
+{% extends "store/base_store.html" %}
+{% block title %}
+     Registration
+{% endblock %}
+{% block content %}
+    <h1>Registration</h1>
+    <form action="{% url 'registration' %}" method="post" class="ml-3">
+    {% csrf_token %}
+        {{ regform.as_p }}
+    <div class="form-group col-sm-3">
+            <label for="phone_input">Phone number:</label>
+            <input type="tel" class="form-control"  id="phone_input" name="phone_number"
+                   placeholder="Format: 375(XX)XXX-XX-XX" pattern="375\([0-9]{2}\)[0-9]{3}-[0-9]{2}-[0-9]{2}" required>
+        </div>
+    <input type="submit" class="btn btn-primary" value="Registration">
+    </form>
+    <script>
+        $('#id_username').addClass("form-control col-sm-3 ");
+         $('#id_email').addClass("form-control col-sm-3");
+        $('#id_password1').addClass("form-control col-sm-3");
+        $('#id_password2').addClass("form-control col-sm-3");
+    </script>
+{% endblock %}

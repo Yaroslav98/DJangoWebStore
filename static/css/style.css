@@ -1,0 +1,141 @@
+.cart-container{
+    position: relative;
+    background-color: rgb(248,249,250);
+    z-index: 2;
+    height: 50px ;
+}
+.cart-items{
+    position: absolute;
+    background-color: rgb(240,240,240);
+    padding: 5px;
+    top: 56px;
+    z-index: 5;
+    width: 450px;
+    visibility: hidden;
+    right: -150px;
+}
+.cart-items-list{
+     list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+}
+li.cart-item{
+    margin-bottom: 0px;
+    border: 1px solid rgb(200,200,200);
+}
+
+.product-count-p{
+    margin-bottom: 1px;
+}
+img {
+  max-width: 100%;
+}
+.cart-item-image{
+    height: 80px;
+    width: 80px;
+}
+h1{
+    text-align:center;
+    margin-top:10px;
+    margin-bottom:30px;
+}
+.product_view_more_url{
+    display: inline-block;
+}
+.order_info{
+    font-size:1.2rem;
+    margin-left: 30px;
+}
+h2{
+    margin-left: 40px;
+    margin-top:20px;
+    margin-bottom: 20px;
+}
+#search_results {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+    width: 500px;
+    background-color: rgb(248,249,250);
+
+}
+.searсh-container{
+    position: relative;
+    z-index: 10;
+}
+.search-items{
+    position: absolute;
+    top: 53px;
+    right: -150px;
+}
+
+.card-text{overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-box-orient: vertical;
+   -webkit-line-clamp: 3; /* number of lines to show */
+   line-height: 20px;        /* fallback */
+   max-height: 80px;       /* fallback */
+}
+.card-img-top{
+    height: 100%;
+}
+.products-container{
+    margin-top: 30px;
+}
+#id_brand_select,#id_category_select{
+    width: 100%;
+}
+.search-product-submit{
+
+}
+.pagination{
+    text-align: center;
+    margin-top: 1px;
+}
+ .pagination-action {
+    margin: 0 0.1em;
+    display: inline-block;
+    padding: 0.5em 0.5em;
+    color: #B9B9B9;
+    font-size: 1.3em;
+}
+ .pagination-action:hover   {
+     color:#3354AA;
+ }
+.pagination-number {
+    padding: 0.5em 0.8em;
+    border-radius: 2px;
+    color: #fff;
+    background-color: #6D85C7;
+}
+.pagination-number:hover, .pagination-current {
+    background-color: #3354AA;
+}
+
+.review-username{
+     display: block;
+     color: inherit;
+     text-align:center;
+     font-size:1.2em;
+}
+#review-rate{
+    font-size: 1.4em;
+}
+#copyright{
+    text-align: center;
+    background-color: black;
+    color:white;
+}
+#nav-logo{
+    height: 40px;
+    width: 50px;
+}
+#footer-logo{
+    height: 200px;
+    width: 200px;
+}
+.footer-container {
+    margin-top: 50px;
+    background-color:  rgb(245,245,245);
+}

@@ -1,0 +1,27 @@
+{% extends "store/base_store.html" %}
+{% block title %}
+    Creating order
+{% endblock %}
+{% block content %}
+{% if products_in_cart %}
+     <table>
+    <tr>
+        <th>Name</th>
+        <th>Quantity</th>
+        <th>Total price</th>
+    </tr>
+    {% for product_id,product_info in products_in_cart.items %}
+        <tr>
+            <th>{{ product_info.name}}</th>
+            <th> {{ product_info.count }}</th>
+            <th>{{ product_info.price }}USD</th>
+        </tr>
+    {% endfor %}
+    </table>
+    <form action="{% url 'creating_order' %}" method="post">
+    {% csrf_token %}
+        <input type="submit">
+    </form>
+{% endif %}
+
+{% endblock %}

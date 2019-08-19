@@ -1,0 +1,42 @@
+{% extends "store/base_store.html" %}
+{% block title %}
+     {{ product.product.title }}
+{% endblock %}
+{% block content %}
+        <h1>{{ product.product.h1 }}</h1>
+
+    <div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+        <img src="{{ product.image.url }}" alt="">
+        </div>
+        <div class="col-sm-6">
+
+            <div class="product-rate mb-2">Rate: {{ product.product.rate }}
+
+                 <a href="{% url 'product_reviews' product.product.id %}">(View all reviews)
+            </a>
+
+            </div>
+
+        <div class="info mb-5">{{ product.product.description }}</div>
+        <form id="form_add_to_cart" class="form-inline"
+        action="{% url 'add_to_cart' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <input type="number" class="form-control" name="count" id="count">
+            </div>
+             <div class="form-group">
+        <button type="submit" id="submit_btn" class="btn btn-success btn-add"
+        data-product_id= "{{ product.product.id }}"
+        data-product_name="{{ product.product.name }}"
+        data-product_price="{{ product.product.price }}"
+        >
+            Add to cart</button>
+             </div>
+            </form>
+        </div>
+    </div>
+    </div>
+
+{% endblock %}

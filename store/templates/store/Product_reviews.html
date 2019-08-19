@@ -1,0 +1,26 @@
+{% extends "store/base_store.html" %}
+{% block title %}
+     {{ product.name }} reviews
+{% endblock %}
+{% block content %}
+    <h1>{{ product.name }} reviews</h1>
+    <div align="right" class="mr-5">
+          <a href="{% url 'creating_review' product.id %}" class="btn btn-success">Create review </a>
+    </div>
+    {% for review in reviews %}
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-2">
+                <span class="review-username" >{{ review.user.username }}</span>
+                 <img src="{{ review.user.userinfo.photo.url }}" alt="user photo">
+            </div>
+            <div class="col-sm-10">
+                <p><span id="review-rate">Rate: {{ review.rating }}</span></p>
+                <p><span id="review-text">Review text: {{ review.text }}</span></p>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}

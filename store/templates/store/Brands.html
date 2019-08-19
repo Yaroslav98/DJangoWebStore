@@ -1,0 +1,25 @@
+{% extends "store/base_store.html" %}
+{% block title %}
+    Brands
+{% endblock %}
+{% block content %}
+    <h1>Brands</h1>
+    <div class="Brands container">
+    <div class="row">
+    {% for brand in brands %}
+        <div class="col-md-3 d-flex align-items-stretch">
+        <div class="brand card">
+            <img class="card-img-top" src="{{ brand.image.url }}" alt="{{ brand.name }} picture">
+            <div class="card-body">
+            <h4 class="card-title">{{ brand.name }}</h4>
+            <p class="card-text">{{ brand.description }}</p>
+                <div align="right">
+            <a href="{% url 'brand' brand.id %}" class="btn btn-primary">View more</a>
+                </div>
+            </div>
+        </div>
+            </div>
+    {% endfor %}
+        </div>
+    </div>
+{% endblock %}

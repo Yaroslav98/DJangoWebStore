@@ -1,0 +1,37 @@
+{% extends "store/base_store.html" %}
+{% block title %}
+    {{ order.title }}
+{% endblock %}
+{% block content %}
+<h1>{{ order.h1 }}</h1>
+
+    <div class="order_info">
+        <p>ID: {{order.id }}</p>
+        <p>Order date:{{ order.date }}</p>
+        <p>Order Price: {{ order.price }} USD</p>
+    </div>
+    <div class="products_in_order" >
+    <h2>Products</h2>
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Quantity</th>
+                <th width="150px">Total price</th>
+            </tr>
+           </thead>
+    {% for product in  products_in_order  %}
+        <tr>
+            <th>{{ product.product.name }}</th>
+            <th>{{ product.product.category }}</th>
+            <th>{{ product.product.description }}</th>
+            <th> {{ product.count }}</th>
+            <th>{{ product.price }} USD</th>
+        </tr>
+    {% endfor %}
+    </table>
+    </div>
+
+{% endblock %}

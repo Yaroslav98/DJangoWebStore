@@ -1,0 +1,25 @@
+{% extends "store/base_store.html" %}
+{% block title %}
+    {{user.username}} orders
+{% endblock %}
+{% block content %}
+    <h1>{{user.username}} orders</h1>
+    <table class="table">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">Order id</th>
+            <th scope="col">Order date</th>
+            <th scope="col">Order price</th>
+            <th>           </th>
+        </tr>
+    </thead>
+    {% for order in  orders  %}
+        <tr>
+            <th>{{ order.id }}</th>
+            <th>{{ order.date }}</th>
+            <th>{{ order.price }} USD</th>
+            <th><a href="{% url "order_info"  order.id %}">View more information</a>    </th>
+        </tr>
+    {% endfor %}
+    </table>
+{% endblock %}
