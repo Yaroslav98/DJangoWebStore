@@ -4,6 +4,8 @@ from django.views.decorators.csrf import csrf_exempt
 from .import views
 urlpatterns = [
     path('', views.home,name="home"),
+    path('about/',views.about_view,name='about'),
+    path('faq/', views.faq_view, name='faq'),
     path('categories/', views.category_view,name='categories'),
     path('product/<int:product_id>/', views.product_view,name='product'),
     path('brand/<int:brand_id>/', views.brand_view,name='brand'),
@@ -24,4 +26,5 @@ urlpatterns = [
     path('dynamic_search/',views.dynamic_search,name='dynamic_search'),
     path('product/<int:product_id>/creating_review/',views.creating_review,name='creating_review'),
     path('product/<int:product_id>/product_reviews/',views.product_reviews,name='product_reviews'),
+
 ]

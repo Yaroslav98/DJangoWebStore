@@ -463,3 +463,9 @@ def product_reviews(request,product_id):
     context["product"]=product
     context['reviews']=reviews
     return render(request,'store/Product_reviews.html',context)
+
+def about_view(request):
+    return render(request,'store/About.html')
+
+def faq_view(request):
+    return render(request,'store/Faq.html')
