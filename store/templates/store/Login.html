@@ -9,7 +9,7 @@
     {% endif %}
     <form action="{% url 'login' %}" method="post" class="ml-3">
         {% csrf_token %}
-        <div class="form-row">
+
         <div class="form-group col-sm-3" >
             <label for="username">Username:</label>
             <input type="text" class="form-control" name="username" id="username" placeholder="Username">
@@ -18,7 +18,7 @@
             <label for="password">Password:</label>
             <input type="password" class="form-control" name="password" id="password" placeholder="Password">
         </div>
-            </div>
-    <input type="submit" class="btn btn-primary" value="Log in">
+
+    <input type="submit" class="btn btn-primary ml-3" value="Log in">
     </form>
 {% endblock %}
