@@ -138,7 +138,7 @@ $(document).ready(function () {
                     $("#search_results").append(
 
                         '<li style="{list-style-type: none;}">' +
-                        '<a href=product/'+key +'>' +
+                        '<a href=/product/'+key +'>' +
                         '<div class="container-fluid">'+
                         '<div class="row" style="border:1px solid rgb(200,200,200);">'+
                         '<div class="col-sm-4" style="display: inline-block; ">' +

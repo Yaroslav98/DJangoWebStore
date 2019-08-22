@@ -32,8 +32,7 @@ footer{
     padding-left: 0;
 }
 li.cart-item{
-    margin-bottom: 0px;
-    border: 1px solid rgb(200,200,200);
+    margin-bottom: 1px;
 }
 
 .product-count-p{
@@ -155,4 +154,6 @@ h2{
      list-style: none;
 }
 
-
+.footer_links{
+    list-style: none;
+}
